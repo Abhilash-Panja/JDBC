@@ -17,8 +17,10 @@ class Main{
     try{
       Connection connection=DriverManager.getConnection(URL, USER, PASS);
       Statement statement=(Statement)connection.createStatement();
-      String Query="select * from student_table";
-      ResultSet resultSet=((java.sql.Statement) statement).executeQuery(Query);
+      String insertQuery = "INSERT INTO student_table (id, name, marks, age) VALUES (3, 'Priyanshu', 90.89, 20)";
+      String selectQuery = "SELECT * FROM student_table";
+      statement.executeUpdate(insertQuery);
+      ResultSet resultSet = statement.executeQuery(selectQuery);
       while (resultSet.next()) {
         int id=resultSet.getInt("id");
         int age=resultSet.getInt("age");
