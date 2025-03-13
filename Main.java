@@ -1,5 +1,6 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,12 +35,16 @@ class Main{
       to excute the SQL Queries.       
      
       *****************************************************************************************/
-      Statement statement=connection.createStatement();
+      String query="insert into student_table (name,age,marks) values (?,?,?)";
+      PreparedStatement statement=connection.prepareStatement(query);
+      // setting up the values 
+      statement.setString(1,"Rahul");
+      statement.setInt(2, 20);
+      statement.setDouble(3, 90.60);
       /*****************************************************************************************
        
-      Step-4: Executing the SQL Queries by using the Statement interface
-       And  when we are using the createStatement() we have to write the SQL
-       Commands Manually.
+      Step-4: Executing the SQL Queries by using the Prepared Statement interface
+       to execute the SQL Queries.
        And we have Different types of SQL Commands like
        1. SELECT
        2. INSERT
@@ -67,6 +72,13 @@ class Main{
 
        *********************************************************************************************
       */
+      int rows_affected=statement.executeUpdate();
+      if(rows_affected>0){
+        System.out.println("Data inserted successfully");
+      }
+      else{
+        System.out.println("Data not inserted");
+      }
     }
     catch(SQLException e){
       System.out.println(e.getMessage());
